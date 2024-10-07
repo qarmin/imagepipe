@@ -1,7 +1,6 @@
 use crate::ops::*;
 use crate::opbasics::*;
 
-extern crate rawloader;
 extern crate multicache;
 use self::multicache::MultiCache;
 extern crate serde;
@@ -261,7 +260,7 @@ impl Pipeline {
 
   pub fn new_from_file<P: AsRef<Path>>(path: P) -> Result<Pipeline, String> {
     do_timing!("total new_from_file()", {
-    if let Ok(img) = do_timing!("  rawloader", rawloader::decode_file(&path)) {
+    if let Ok(img) = do_timing!("  rawler", rawler::decode_file(&path)) {
       Self::new_from_source(ImageSource::Raw(img))
     } else if let Ok(img) = do_timing!("  image::open", image::open(&path)) {
       Self::new_from_source(ImageSource::Other(img))

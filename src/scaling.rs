@@ -1,6 +1,6 @@
 use crate::buffer::*;
 use crate::pipeline::{SRGBImage, SRGBImage16};
-use rawloader::CFA;
+use rawler::CFA;
 use num_traits::cast::AsPrimitive;
 use rayon::prelude::*;
 use std::cmp;

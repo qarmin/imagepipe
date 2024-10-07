@@ -5,7 +5,7 @@ use std::io::BufWriter;
 use image::ExtendedColorType;
 
 extern crate imagepipe;
-extern crate rawloader;
+extern crate rawler;
 extern crate image;
 
 fn usage() {

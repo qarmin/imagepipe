@@ -20,14 +20,28 @@ impl OpGoFloat {
     match img {
       ImageSource::Raw(img) => {
         // Calculate the resulting width/height and top-left corner after crops
+        let black_level_array: [u16; 4] = img.camera.blacklevel.clone().map(|e| {
+          [*e.get(0).unwrap_or(&0) as u16,
+           *e.get(1).unwrap_or(&0)as u16,
+           *e.get(2).unwrap_or(&0)as u16,
+           *e.get(3).unwrap_or(&0)as u16]
+        }).unwrap_or([0 as u16; 4]);
+
+        let white_level_array: [u16; 4] = img.camera.whitelevel.clone().map(|e| {
+          [*e.get(0).unwrap_or(&0) as u16,
+            *e.get(1).unwrap_or(&0)as u16,
+            *e.get(2).unwrap_or(&0)as u16,
+            *e.get(3).unwrap_or(&0)as u16]
+        }).unwrap_or([0 as u16; 4]);
+
         OpGoFloat{
-          crop_top:    img.crops[0],
-          crop_right:  img.crops[1],
-          crop_bottom: img.crops[2],
-          crop_left:   img.crops[3],
-          is_cfa: img.cfa.is_valid(),
-          blacklevels: from_int4(img.blacklevels),
-          whitelevels: from_int4(img.whitelevels),
+          crop_top:    img.camera.crop_area.map(|e|e[0]).unwrap_or(0),
+          crop_right:  img.camera.crop_area.map(|e|e[1]).unwrap_or(0),
+          crop_bottom: img.camera.crop_area.map(|e|e[2]).unwrap_or(0),
+          crop_left:   img.camera.crop_area.map(|e|e[3]).unwrap_or(0),
+          is_cfa: img.camera.cfa.is_valid(),
+          blacklevels: from_int4(black_level_array),
+          whitelevels: from_int4(white_level_array),
         }
       },
       ImageSource::Other(_) => {
