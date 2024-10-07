@@ -2,7 +2,7 @@ use std::env;
 use std::fs::File;
 use std::io::BufWriter;
 //use std::time::Instant;
-use image::ColorType;
+use image::ExtendedColorType;
 
 extern crate imagepipe;
 extern crate rawloader;
@@ -67,6 +67,6 @@ fn main() {
 
   let mut jpg_encoder = image::codecs::jpeg::JpegEncoder::new_with_quality(&mut f, 90);
   jpg_encoder
-    .encode(&decoded.data, decoded.width as u32, decoded.height as u32, ColorType::Rgb8)
+    .encode(&decoded.data, decoded.width as u32, decoded.height as u32, ExtendedColorType::Rgb8)
     .expect("Encoding image in JPEG format failed.");
 }

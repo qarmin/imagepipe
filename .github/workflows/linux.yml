@@ -1,0 +1,30 @@
+name: 🐧 Linux
+on:
+  push:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  linux-cli:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install basic libraries
+        run: sudo apt update || true; sudo apt install git -y
+
+      - name: Clone rawloader and multicache
+        run: |
+          - git clone https://github.com/pedrocr/rawloader.git ../rawloader/
+          - git clone https://github.com/pedrocr/multicache.git ../multicache/
+
+      - name: Setup rust version
+        run: rustup default stable
+
+      - name: Build
+        run: cargo build
+
+      - name: Test
+        run: cargo test
