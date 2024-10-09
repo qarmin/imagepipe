@@ -10,7 +10,8 @@ impl OpDemosaic {
     match img {
       ImageSource::Raw(img) => {
         OpDemosaic{
-          cfa: img.cropped_cfa().to_string(),
+          // TODO change to CFA::shift()
+          cfa: img.camera.cfa.to_string(),
         }
       },
       ImageSource::Other(_) => {

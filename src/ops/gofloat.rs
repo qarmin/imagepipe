@@ -25,20 +25,28 @@ impl OpGoFloat {
            *e.get(1).unwrap_or(&0)as u16,
            *e.get(2).unwrap_or(&0)as u16,
            *e.get(3).unwrap_or(&0)as u16]
-        }).unwrap_or([0 as u16; 4]);
+        }).unwrap_or([0u16; 4]);
 
         let white_level_array: [u16; 4] = img.camera.whitelevel.clone().map(|e| {
           [*e.get(0).unwrap_or(&0) as u16,
             *e.get(1).unwrap_or(&0)as u16,
             *e.get(2).unwrap_or(&0)as u16,
             *e.get(3).unwrap_or(&0)as u16]
-        }).unwrap_or([0 as u16; 4]);
+        }).unwrap_or([0u16; 4]);
+
+        let _rect = img.crop_area.unwrap_or_default();
+
+        // Nothing works :(
 
         OpGoFloat{
-          crop_top:    img.camera.crop_area.map(|e|e[0]).unwrap_or(0),
-          crop_right:  img.camera.crop_area.map(|e|e[1]).unwrap_or(0),
-          crop_bottom: img.camera.crop_area.map(|e|e[2]).unwrap_or(0),
-          crop_left:   img.camera.crop_area.map(|e|e[3]).unwrap_or(0),
+          // crop_top:    rect.y() + rect.height(),
+          // crop_right:  rect.x() + rect.width(),
+          // crop_bottom: rect.y(),
+          // crop_left:   rect.x(),
+          crop_top:    0,
+          crop_right:  0,
+          crop_bottom: 0,
+          crop_left:   0,
           is_cfa: img.camera.cfa.is_valid(),
           blacklevels: from_int4(black_level_array),
           whitelevels: from_int4(white_level_array),
